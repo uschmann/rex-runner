@@ -31,8 +31,8 @@ const int Trex::HEIGHT = 94;
 
 const int Trex::GROUND_Y = 400;
 
-const float Trex::JUMP_VELOCITY = -15;
-const float Trex::GRAVITY_Y = 0.5;
+const float Trex::JUMP_VELOCITY = -20;
+const float Trex::GRAVITY_Y = 1;
 
 Trex::Trex(SDL_Renderer* renderer, SDL_Texture* sprites) 
 {

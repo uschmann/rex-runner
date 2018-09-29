@@ -9,6 +9,7 @@
 
 #include "Trex.h"
 #include "Ground.h"
+#include "Cactus.h"
 
 #define DEBUG 
 
@@ -21,6 +22,9 @@ TTF_Font* font = NULL;
 int screenWidth = 0;
 int screenHeight = 0;
 
+/**
+ * Init
+ */
 bool init() {
   SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -78,6 +82,9 @@ bool init() {
   return true;
 }
 
+/**
+ * Main entrypoint
+ */
 int main(int argc, char* argv[]) {
   if(!init()) {
     socketExit();
@@ -88,6 +95,9 @@ int main(int argc, char* argv[]) {
 
   Trex* tRex = new Trex(renderer, sprites);
   Ground* ground = new Ground(renderer, sprites);
+  Cactus* cactus = new Cactus(renderer, sprites, 0);
+  Cactus* cactus2 = new Cactus(renderer, sprites, 1);
+  cactus2->setX(300);
 
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(renderer);
@@ -113,12 +123,16 @@ int main(int argc, char* argv[]) {
     // TODO: Update game logic
     tRex->update(deltaTime);
     ground->move(10);
+    cactus->move(10);
+    cactus2->move(10);
 
     
     // TODO: Draw something here
     SDL_RenderClear(renderer);
       tRex->draw();
       ground->draw();
+      cactus->draw();
+      cactus2->draw();
     SDL_RenderPresent(renderer);
   }
 
