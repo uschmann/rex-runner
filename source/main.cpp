@@ -8,6 +8,7 @@
 #include <switch.h>
 
 #include "Trex.h"
+#include "Ground.h"
 
 #define DEBUG 
 
@@ -86,6 +87,7 @@ int main(int argc, char* argv[]) {
   int lastTick = SDL_GetTicks();
 
   Trex* tRex = new Trex(renderer, sprites);
+  Ground* ground = new Ground(renderer, sprites);
 
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(renderer);
@@ -110,10 +112,13 @@ int main(int argc, char* argv[]) {
 
     // TODO: Update game logic
     tRex->update(deltaTime);
+    ground->move(10);
 
-    SDL_RenderClear(renderer);
+    
     // TODO: Draw something here
-    tRex->draw();
+    SDL_RenderClear(renderer);
+      tRex->draw();
+      ground->draw();
     SDL_RenderPresent(renderer);
   }
 
