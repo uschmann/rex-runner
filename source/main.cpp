@@ -7,10 +7,7 @@
 #include <string>
 #include <switch.h>
 
-#include "Trex.h"
-#include "Ground.h"
-#include "Cactus.h"
-#include "Cloud.h"
+#include "Game.h"
 
 #define DEBUG 
 
@@ -70,7 +67,7 @@ bool init() {
     return false;
   }
 
-  font = TTF_OpenFont("romfs:/font.ttf", 48);
+  font = TTF_OpenFont("romfs:/font.ttf", 32);
   if(!font) {
     printf("TTF_OpenFont() failed!\n");
     SDL_Quit();
@@ -88,18 +85,15 @@ bool init() {
  */
 int main(int argc, char* argv[]) {
   if(!init()) {
-    socketExit();
+    #ifdef DEBUG
+      socketExit();
+    #endif // DEBUG
     return 0;
   }
   bool isRunning = true;
   int lastTick = SDL_GetTicks();
 
-  Trex* tRex = new Trex(renderer, sprites);
-  Ground* ground = new Ground(renderer, sprites);
-  Cloud* cloud = new Cloud(renderer, sprites);
-  Cactus* cactus = new Cactus(renderer, sprites, 0);
-  Cactus* cactus2 = new Cactus(renderer, sprites, 1);
-  cactus2->setX(300);
+  Game* game = new Game(renderer, sprites, font);
 
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
   SDL_RenderClear(renderer);
@@ -117,33 +111,15 @@ int main(int argc, char* argv[]) {
                 isRunning = false;
                 break;
             case SDL_FINGERMOTION:
-                tRex->jump();
+                game->pressButton();
                 break;
         }
     }
 
-    // TODO: Update game logic
-    tRex->update(deltaTime);
-    ground->move(10);
-    cloud->move(10);
-    cactus->move(10);
-    cactus2->move(10);
+    game->update(deltaTime);
 
-    if(tRex->checkCollisions(cactus->getRect())) {
-      printf("BOOM\n");
-    }
-    if(tRex->checkCollisions(cactus2->getRect())) {
-      printf("BOOM\n");
-    }
-
-
-    // TODO: Draw something here
     SDL_RenderClear(renderer);
-      cloud->draw();
-      ground->draw();
-      cactus->draw();
-      cactus2->draw();
-      tRex->draw();
+    game->draw();    
     SDL_RenderPresent(renderer);
   }
 
@@ -151,7 +127,10 @@ int main(int argc, char* argv[]) {
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 
-  socketExit();
+  #ifdef DEBUG
+    socketExit();
+  #endif // DEBUG
+  
 
   SDL_Quit();
   return 0;

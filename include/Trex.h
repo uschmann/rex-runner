@@ -17,6 +17,7 @@ class Trex {
     bool checkCollisions(SDL_Rect* rect);
 
     void jump();
+    void reset();
     private:
         static const SDL_Rect FRAMES_WALKING[2];
         static const SDL_Rect FRAME_JUMPING;

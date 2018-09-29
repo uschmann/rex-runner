@@ -96,8 +96,16 @@ bool Trex::checkCollisions(SDL_Rect* rect)
         return false;
     }
 
-    //If none of the sides from A are outside B
+    mState = Trex::State::CRASHED;
+
     return true;
+}
+
+void Trex::reset()
+{
+    mState = Trex::State::WALKING;
+    mY = Trex::GROUND_Y;
+    mVelocityY = 0;
 }
 
 void Trex::update(int deltaTime)
