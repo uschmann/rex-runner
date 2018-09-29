@@ -10,6 +10,7 @@
 #include "Trex.h"
 #include "Ground.h"
 #include "Cactus.h"
+#include "Cloud.h"
 
 #define DEBUG 
 
@@ -95,6 +96,7 @@ int main(int argc, char* argv[]) {
 
   Trex* tRex = new Trex(renderer, sprites);
   Ground* ground = new Ground(renderer, sprites);
+  Cloud* cloud = new Cloud(renderer, sprites);
   Cactus* cactus = new Cactus(renderer, sprites, 0);
   Cactus* cactus2 = new Cactus(renderer, sprites, 1);
   cactus2->setX(300);
@@ -123,16 +125,18 @@ int main(int argc, char* argv[]) {
     // TODO: Update game logic
     tRex->update(deltaTime);
     ground->move(10);
+    cloud->move(10);
     cactus->move(10);
     cactus2->move(10);
 
     
     // TODO: Draw something here
     SDL_RenderClear(renderer);
-      tRex->draw();
+      cloud->draw();
       ground->draw();
       cactus->draw();
       cactus2->draw();
+      tRex->draw();
     SDL_RenderPresent(renderer);
   }
 
