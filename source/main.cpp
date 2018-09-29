@@ -108,9 +108,16 @@ int main(int argc, char* argv[]) {
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_JOYBUTTONDOWN:
-                isRunning = false;
+              switch(event.jbutton.button) {
+                case SDL_CONTROLLER_BUTTON_A:
+                  game->pressButton();
                 break;
-            case SDL_FINGERMOTION:
+                case SDL_CONTROLLER_BUTTON_X:
+                  isRunning = false;
+                break;
+              }
+            break;
+            case SDL_FINGERDOWN:
                 game->pressButton();
                 break;
         }

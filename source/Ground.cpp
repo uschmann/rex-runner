@@ -21,7 +21,7 @@ Ground::Ground(SDL_Renderer* renderer, SDL_Texture* sprites)
 const int Ground::GROUND_Y = 475;
 const int Ground::SPRITE_X = 2;
 const int Ground::SPRITE_Y = 54;
-const int Ground::SPRITE_WIDTH = 1200;
+const int Ground::SPRITE_WIDTH = 1198;
 const int Ground::SPRITE_HEIGHT = 12;
 const SDL_Rect Ground::FRAME_SPRITE = {
     Ground::SPRITE_X,

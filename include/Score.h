@@ -8,10 +8,12 @@ class Score
     public:
         Score(SDL_Renderer* renderer, TTF_Font* font);
         void setScore(int score);
+        void setHighScore(int highScore);
         void draw();
     private:
         SDL_Renderer* mRenderer;
         TTF_Font* mFont;
 
         int mScore;
+        int mHighScore;
 };

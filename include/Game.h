@@ -41,5 +41,7 @@ class Game
 
         int mSpeed;
         int mCurrentScore;
+        int mHighScore;
+        
         Game::State mState;
 };
