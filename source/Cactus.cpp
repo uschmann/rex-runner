@@ -1,5 +1,6 @@
 
 #include "Cactus.h"
+#include <iostream>
 
 const int Cactus::POS_Y = 500;
 
@@ -19,6 +20,13 @@ Cactus::Cactus(SDL_Renderer* renderer, SDL_Texture* sprites, int type)
     mSprites = sprites;
 
     mType = type;
+    mSrcRect = { 
+        Cactus::FRAMES[mType].x + (rand() % 5) * Cactus::FRAMES[mType].w,
+        Cactus::FRAMES[mType].y,
+        Cactus::FRAMES[mType].w,
+        Cactus::FRAMES[mType].h
+    };
+
     mBoundingBox = { 
         1280,
         Cactus::POS_Y - Cactus::FRAMES[mType].h * 2,
@@ -27,12 +35,18 @@ Cactus::Cactus(SDL_Renderer* renderer, SDL_Texture* sprites, int type)
     };
 }
 
+SDL_Rect* Cactus::getRect() 
+{
+    return &mBoundingBox;
+}
+
 void Cactus::move(int offset)
 {
     mBoundingBox.x -= offset;
 
     if(mBoundingBox.x <= mBoundingBox.w * -1) {
-        mBoundingBox.x = 1280;
+        mBoundingBox.x = 1280 + (rand() % 1000);
+        mSrcRect.x = Cactus::FRAMES[mType].x  + (rand() % 5) * Cactus::FRAMES[mType].w;
     }
 }
 
@@ -43,5 +57,5 @@ void Cactus::setX(int x)
 
 void Cactus::draw()
 {
-    SDL_RenderCopy(mRenderer, mSprites, &Cactus::FRAMES[mType], &mBoundingBox);
+    SDL_RenderCopy(mRenderer, mSprites, &mSrcRect, &mBoundingBox);
 }

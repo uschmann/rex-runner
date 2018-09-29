@@ -56,20 +56,62 @@ void Trex::jump()
     }
 }
 
+bool Trex::checkCollisions(SDL_Rect* rect)
+{
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = rect->x;
+    rightA = rect->x + rect->w;
+    topA = rect->y;
+    bottomA = rect->y + rect->h;
+
+    //Calculate the sides of rect B
+    leftB = mX;
+    rightB = mX + Trex::WIDTH;
+    topB = mY;
+    bottomB = mY + Trex::HEIGHT;
+
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return false;
+    }
+
+    if( topA >= bottomB )
+    {
+        return false;
+    }
+
+    if( rightA <= leftB )
+    {
+        return false;
+    }
+
+    if( leftA >= rightB )
+    {
+        return false;
+    }
+
+    //If none of the sides from A are outside B
+    return true;
+}
+
 void Trex::update(int deltaTime)
 {
     mTimer += deltaTime;
 
     switch(mState) {
         case Trex::State::WALKING:
-            printf("Walking!\n");
             if(mTimer - mLastFrameChange > 200) {
                 mLastFrameChange = mTimer;
                 mCurrentWalkFrame = mCurrentWalkFrame == 0 ? 1 : 0;
             }
         break;
         case Trex::State::JUMPING:
-            printf("Jumping!\n");
             mY += mVelocityY;
             mVelocityY += Trex::GRAVITY_Y;
 
@@ -79,7 +121,6 @@ void Trex::update(int deltaTime)
             }
         break;
         case Trex::State::CRASHED:
-            printf("Crashed!\n");
         break;
     }
 }

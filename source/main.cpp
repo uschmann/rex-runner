@@ -129,7 +129,14 @@ int main(int argc, char* argv[]) {
     cactus->move(10);
     cactus2->move(10);
 
-    
+    if(tRex->checkCollisions(cactus->getRect())) {
+      printf("BOOM\n");
+    }
+    if(tRex->checkCollisions(cactus2->getRect())) {
+      printf("BOOM\n");
+    }
+
+
     // TODO: Draw something here
     SDL_RenderClear(renderer);
       cloud->draw();

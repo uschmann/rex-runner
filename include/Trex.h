@@ -14,6 +14,7 @@ class Trex {
 
     void update(int deltaTime);
     void draw();
+    bool checkCollisions(SDL_Rect* rect);
 
     void jump();
     private:
