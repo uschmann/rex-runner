@@ -37,6 +37,7 @@ DATA		:=	data
 INCLUDES	:=	include
 EXEFS_SRC	:=	exefs_src
 ROMFS	:=	romfs
+APP_AUTHOR := Usch
 
 #---------------------------------------------------------------------------------
 # options for code generation
